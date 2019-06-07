@@ -90,14 +90,14 @@ def bring_to_standard_form(conditions: List[Equation], constraints: List[Equatio
     # Reverse >= sign
     for c in conditions[:]:
         if c.sign == '>=':
-            conditions.append(Equation([Variable(v.name, v.coefficient * -1) for v in c.variables], c.value, '<='))
+            conditions.append(Equation([Variable(v.name, v.coefficient * -1) for v in c.variables], c.value * -1, '<='))
             conditions.remove(c)
 
     # Transform '=' sign in two '<=' signs
     for c in conditions[:]:
         if c.sign == '=':
             conditions.append(Equation(c.variables, c.value, '<='))
-            conditions.append(Equation([Variable(v.name, v.coefficient * -1) for v in c.variables], c.value, '<='))
+            conditions.append(Equation([Variable(v.name, v.coefficient * -1) for v in c.variables], c.value * -1, '<='))
             conditions.remove(c)
 
 
@@ -191,16 +191,16 @@ if __name__ == '__main__':
                     "2a + 2b + 2c <= 24"],
                    ["a >= 0", "b >= 0", "c >= 0"])
     """
-    """
     solve_maximize("2x1 + 3x2 + 3x3 = z",
                    ["x1 + x2 + x3 <= 30",
                     "2x1 + x2 + 3x3 >= 60",
                     "x1 - x2 + 2x3 = 20"],
                    ["x1 >= 0", "x2 >= 0", "x3 >= 0"])
-    """
     # http://math.uww.edu/~mcfarlat/s-prob.htm
+    """
     solve_maximize("x1 + 2x2 - x3 = z",
                    ["2x1 + x2 + x3 <= 14",
                     "4x1 + 2x2 + 3x3 <= 28",
                     "2x1 + 5x2 + 5x3 <= 30"],
                    ["x1 >= 0", "x2 >= 0", "x3 >= 0"])
+    """
